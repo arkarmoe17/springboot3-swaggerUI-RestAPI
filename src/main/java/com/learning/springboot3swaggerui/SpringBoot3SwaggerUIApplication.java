@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Springboot3SwaggeruiApplication {
+public class SpringBoot3SwaggerUIApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Springboot3SwaggeruiApplication.class, args);
+        SpringApplication.run(SpringBoot3SwaggerUIApplication.class, args);
     }
 
 }

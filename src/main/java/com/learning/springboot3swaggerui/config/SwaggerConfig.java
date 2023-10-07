@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 
@@ -37,7 +38,10 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 @Server(
                         url = "http://localhost:8080", description = "PROD environment"
                 )
-        }
+        },
+        security = @SecurityRequirement(
+                name = "bearerAuth"
+        )
 )
 @SecurityScheme(
         name = "bearerAuth",
