@@ -6,10 +6,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +20,23 @@ import java.util.List;
 @Tag(name = "Student", description = "Student API")
 public class StudentController {
     private final StudentService studentService;
+
+    // CREATE STUDENT
+    @Operation(
+            description = "Endpoint for creating the student",
+            summary = "Creating student API",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "201"
+                    )
+            }
+    )
+    @PostMapping
+    public ResponseEntity<Student> createStudent(@Valid @RequestBody Student payload) {
+        Student student = studentService.createStudent(payload);
+        return new ResponseEntity<>(student, HttpStatus.CREATED);
+    }
 
     // GET ALL STUDENTS
     @Operation(
@@ -38,7 +56,8 @@ public class StudentController {
             }
     )
     @GetMapping
-    public List<Student> findAllStudents() {
-        return studentService.findAllStudents();
+    public ResponseEntity<List<Student>> findAllStudents() {
+        List<Student> students = studentService.findAllStudents();
+        return ResponseEntity.ok(students);
     }
 }
