@@ -1,4 +1,16 @@
 spring:
+  application:
+    name: spring-boot3-with-security
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true   # fix the ddl problem
+#        globally_quoted_identifiers_skip_column_definitions: true
+#        format_sql: true
   datasource:
     url: jdbc:h2:mem:test
     driver-class-name: org.h2.Driver
@@ -7,8 +19,4 @@ spring:
   h2:
     console:
       enabled: true
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
+
