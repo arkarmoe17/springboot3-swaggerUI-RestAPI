@@ -7,7 +7,7 @@ The following was discovered as part of building this project:
 
 ### Reference Documentation
 For further reference, please consider the following sections:
-* [SpringBoot 3 with JWT Token]("https://github.com/buingoctruong/springboot3-springsecurity6-jwt/blob/master/src/main/java/com/truongbn/security/service/impl/JwtServiceImpl.java")
+* [SpringBoot 3 with JWT Token](https://github.com/buingoctruong/springboot3-springsecurity6-jwt/blob/master/src/main/java/com/truongbn/security/service/impl/JwtServiceImpl.java)
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.1.4/maven-plugin/reference/html/)
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.1.4/maven-plugin/reference/html/#build-image)
