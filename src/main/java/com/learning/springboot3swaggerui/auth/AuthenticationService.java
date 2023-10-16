@@ -1,6 +1,7 @@
 package com.learning.springboot3swaggerui.auth;
 
 import com.learning.springboot3swaggerui.config.JwtService;
+import com.learning.springboot3swaggerui.exceptions.UserServiceException;
 import com.learning.springboot3swaggerui.model.User;
 import com.learning.springboot3swaggerui.model.constants.Role;
 import com.learning.springboot3swaggerui.repository.UserRepository;
@@ -10,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -21,7 +24,12 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        //TODO: check already register or not
+        // Check user email is already registered or not
+        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+        if (userOptional.isPresent())
+            throw new UserServiceException("This email " + request.getEmail() + " is already exist.");
+
+        // Register
         var user = User
                 .builder()
                 .firstName(request.getFirstName())
@@ -31,7 +39,8 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         userRepository.save(user);
-        // token
+
+        // Generate Token
         var jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
@@ -41,6 +50,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
 
+        // Authenticate
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -51,10 +61,10 @@ public class AuthenticationService {
         // userInfo
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
-        log.info("userInfo: {}",user);
+        log.info("userInfo: {}", user);
 
         var jwtToken = jwtService.generateToken(user);
-        log.info("Token:{}",jwtToken);
+        log.info("Token:{}", jwtToken);
 
         return AuthenticationResponse
                 .builder()
