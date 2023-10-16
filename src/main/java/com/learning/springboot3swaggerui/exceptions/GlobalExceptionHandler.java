@@ -9,15 +9,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    // That is refactored from Runtime exception to Custom exception
-    /*@ExceptionHandler(UserServiceException.class)
-    public ProblemDetail handleUserServiceException(UserServiceException e) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
-        problemDetail.setTitle("User service exception");
-        problemDetail.setType(URI.create("http://localhost:8080/api/v1/error/not-found"));
-        return problemDetail;
-    }*/
-
     @ExceptionHandler(Exception.class)
     public ProblemDetail handle(Exception e) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
